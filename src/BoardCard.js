@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 const BoardCard = ({ name, cardCount, modifiedDate }) => {
     const classes = useStyles();
     return (
-        <Card className={classes.root}>
+        <Card variant='outlined' className={classes.root}>
             <CardContent>
                 <Typography variant="h6" className={classes.title}>
                     {name}
