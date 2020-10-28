@@ -1,22 +1,26 @@
 import React from 'react';
 import { Card, CardContent, Typography, makeStyles } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import moment from 'moment';
 
 const useStyles = makeStyles({
     root: {
-        minWidth: 275,
-    },
-    bullet: {
-        display: 'inline-block',
-        margin: '0 2px',
-        transform: 'scale(0.8)',
+        minWidth: 200,
     },
     title: {
-        fontSize: 14,
+        color: '#8E24AA'
     },
     pos: {
         marginBottom: 12,
     },
+    modifiedDate: {
+        fontSize: 15
+    },
+    icon: {
+        fontSize: 15,
+        color: '#283593',
+        fontWeight: 'bolder'
+    }
 });
 
 
@@ -25,13 +29,15 @@ const BoardCard = ({ name, cardCount, modifiedDate }) => {
     return (
         <Card className={classes.root}>
             <CardContent>
-                <Typography variant="h5" component="h2">
+                <Typography variant="h6" className={classes.title}>
                     {name}
                 </Typography>
-                <AccessTimeIcon />
-                <Typography>{modifiedDate}</Typography>
                 <Typography className={classes.pos} color="textSecondary">
-                    {cardCount} card
+                    {cardCount} {cardCount > 1 ? "cards" : "card"}
+                </Typography>
+                <Typography align="right" className={classes.modifiedDate}>
+                    <AccessTimeIcon className={classes.icon} />
+                    {moment(modifiedDate).format("DD/MM/YYYY")}
                 </Typography>
             </CardContent>
         </Card>

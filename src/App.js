@@ -5,6 +5,9 @@ import PublicBoards from './PublicBoards';
 const axios = require('axios').default;
 
 
+const userID_test = '5f97c9e93f2cf8fef63f0777';
+
+
 const useStyles = makeStyles(() => ({
     titleStyles: {
         marginBlockStart: 25,
@@ -20,16 +23,16 @@ export default function App() {
 
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchData = async (userID) => {
             try {
-                const respone = await axios.get("https://sprint-retrospective-api.herokuapp.com/boards/5f97c9e93f2cf8fef63f0777");
+                const respone = await axios.get(`https://sprint-retrospective-api.herokuapp.com/boards/${userID}`);
                 setBoards(respone.data);
                 setIsLoading(false);
             } catch (error) {
                 console.log(error);
             }
         }
-        fetchData();
+        fetchData(userID_test);
     }, []);
 
 
