@@ -19,9 +19,9 @@ const PublicBoards = ({ boardList, refreshBoards }) => {
                         name={boards[i].name}
                         modifiedDate={boards[i].modifiedDate}
                         cardCount={boards[i].cardCount}
-                        deleteAction={() => {
-                            BoardService.deleteBoard(boards[i]._id);
-                            refreshBoards();
+                        deleteAction={async () => {
+                            await BoardService.deleteBoard(boards[i]._id);
+                            await refreshBoards();
                         }}
                     />
                 </Grid>
