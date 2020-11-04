@@ -78,7 +78,6 @@ export default function App() {
                             />
                         }
                     </Grid>
-                    <AddBoard />
                     <Grid item xs={1} />
                 </Grid>
             </Grid>
