@@ -4,8 +4,10 @@ import Header from './Header';
 import PublicBoards from './PublicBoards';
 import AddBoard from './AddBoard';
 import Login from './Login';
+
 import CookieService from './services/CookieService';
-import axios from 'axios';
+import AccountService from './services/AccountService';
+import BoardService from './services/BoardService';
 
 
 const useStyles = makeStyles(() => ({
@@ -18,38 +20,38 @@ const useStyles = makeStyles(() => ({
 
 
 export default function App() {
-    const [boards, setBoards] = useState([]);
+    const [boards, setBoards] = useState(null);
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const classes = useStyles();
 
-
-    const fetchData = async (userID) => {
-        try {
-            const respone = await axios.get(`https://sprint-retrospective-api.herokuapp.com/boards/${userID}`);
-            setBoards(respone.data);
-            setIsLoading(false);
-        } catch (error) {
-            console.log(error);
+    const FetchData = async () => {
+        if (!user) {
+            const userID = CookieService.read('userID');
+            if (userID) {
+                AccountService.getUser(userID).then(userData => {
+                    if (userData) {
+                        setUser(userData);
+                    }
+                });
+                const boards = await BoardService.getBoards(userID);
+                if (boards) {
+                    setBoards(boards);
+                    setIsLoading(false);
+                }
+            }
         }
     }
 
 
-    useEffect(() => { fetchData(user) }, [user]);
-
-
-    if (!user) {
-        const uID = CookieService.read('userID');
-        if (uID)
-            setUser(String(uID));
-    }
+    useEffect(() => { FetchData(); });
 
 
     if (user) {
         return (
             <Grid container direction="column">
                 <Grid item>
-                    <Header userName="Đức" avatar="https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png" />
+                    <Header userName={user.firstName} avatar={user.avatar} />
                 </Grid>
                 <Grid item>
                     <Box m={3}>
@@ -80,12 +82,7 @@ export default function App() {
         );
     } else {
         return (
-            <Login
-                loginSuccessAction={() => {
-                    const userID = CookieService.read(`userID`);
-                    setUser(String(userID));
-                }}
-            />
+            <Login loginSuccessAction={() => FetchData()} />
         )
     }
 };
