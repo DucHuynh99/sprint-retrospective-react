@@ -51,7 +51,7 @@ export default function App() {
         return (
             <Grid container direction="column">
                 <Grid item>
-                    <Header userName={user.firstName} avatar={user.avatar} />
+                    <Header userName={user.firstName} avatar={user.avatar} updateUserProfileAction={() => { }} />
                 </Grid>
                 <Grid item>
                     <Box m={3}>
@@ -72,7 +72,10 @@ export default function App() {
                     <Grid item>
                         {isLoading ?
                             <Typography>Loading...</Typography> :
-                            < PublicBoards boardList={boards} />
+                            < PublicBoards
+                                boardList={boards}
+                                refreshBoards={async () => { setBoards(await BoardService.getBoards(user._id)) }}
+                            />
                         }
                     </Grid>
                     <AddBoard />

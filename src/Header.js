@@ -9,14 +9,14 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-const Header = ({ userName, avatar }) => {
+const Header = ({ userName, avatar, updateUserProfileAction }) => {
     const classes = useStyles();
     return (
         <AppBar position="static" className={classes.appbarstyle}>
             <Toolbar>
                 <Typography variant="h5" className={classes.typographyStyle}>Sprint Retrospective</Typography>
                 <Avatar src={avatar} />
-                <Button>
+                <Button onClick={() => { updateUserProfileAction() }}>
                     Hi {userName}
                 </Button>
             </Toolbar>

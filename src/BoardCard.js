@@ -1,6 +1,7 @@
 import React from 'react';
-import { Card, CardContent, Typography, makeStyles } from '@material-ui/core';
+import { makeStyles, Card, CardContent, Typography, IconButton } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import DeleteIcon from '@material-ui/icons/Delete';
 import moment from 'moment';
 
 const useStyles = makeStyles({
@@ -24,7 +25,7 @@ const useStyles = makeStyles({
 });
 
 
-const BoardCard = ({ name, cardCount, modifiedDate }) => {
+const BoardCard = ({ name, cardCount, modifiedDate, deleteAction }) => {
     const classes = useStyles();
     return (
         <Card variant='outlined' className={classes.root}>
@@ -39,6 +40,9 @@ const BoardCard = ({ name, cardCount, modifiedDate }) => {
                     <AccessTimeIcon className={classes.icon} />
                     {moment(modifiedDate).format("DD/MM/YYYY")}
                 </Typography>
+                <IconButton align="right" aria-label="delete" onClick={() => deleteAction()}>
+                    <DeleteIcon />
+                </IconButton>
             </CardContent>
         </Card>
     );

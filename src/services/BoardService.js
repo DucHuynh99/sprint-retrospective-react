@@ -13,8 +13,18 @@ async function getBoards(userID) {
     }
 }
 
+async function deleteBoard(boardID) {
+    try {
+        await axios.delete(`http://localhost:5000/boards/${boardID}`);
+        return true;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
 
-const funcs = { getBoards };
+
+const funcs = { getBoards, deleteBoard };
 
 
 export default funcs;
