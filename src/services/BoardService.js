@@ -15,7 +15,7 @@ async function getBoards(userID) {
 
 async function deleteBoard(boardID) {
     try {
-        await axios.delete(`http://localhost:5000/boards/${boardID}`);
+        await axios.delete(`https://sprint-retrospective-api.herokuapp.com/boards/${boardID}`);
         return true;
     } catch (error) {
         console.log(error);
