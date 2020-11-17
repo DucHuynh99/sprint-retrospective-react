@@ -1,8 +1,11 @@
 import axios from 'axios';
 
+// const API_URL = "https://sprint-retrospective-api.herokuapp.com";
+const API_URL = "http://localhost:5000";
+
 async function getUser(userID) {
     try {
-        const res = await axios.get(`https://sprint-retrospective-api.herokuapp.com/users/${userID}`);
+        const res = await axios.get(`${API_URL}/users/${userID}`);
         if (res.status === 200) {
             return res.data;
         } else {
@@ -15,8 +18,8 @@ async function getUser(userID) {
 
 async function register(email, password, firstName, lastName) {
     try {
-        const res = await axios.post(`https://sprint-retrospective-api.herokuapp.com/users/register`, { email, password, firstName, lastName });
-        if (res.status === 200) {
+        const res = await axios.post(`${API_URL}/users/register`, { email, password, firstName, lastName });
+        if (res.status === 201) {
             return res.data;
         } else {
             return null;
@@ -28,8 +31,39 @@ async function register(email, password, firstName, lastName) {
 
 async function login(email, password) {
     try {
-        const res = await axios.post(`https://sprint-retrospective-api.herokuapp.com/users/`, { email, password });
+        const res = await axios.post(`${API_URL}/users/`, { email, password });
         if (res.status === 200) {
+            localStorage.setItem("token", res.data);
+            return res.data;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function loginWithGoogle(tokenId) {
+    try {
+        const res = await axios.post(`${API_URL}/users/login-with-google`, { tokenId });
+        console.log(res);
+        if (res.status === 200) {
+            localStorage.setItem("token", res.data);
+            return res.data;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function loginWithFacebook(id, accessToken) {
+    try {
+        const res = await axios.post(`${API_URL}/users/login-with-facebook`, { id, accessToken });
+        console.log(res);
+        if (res.status === 200) {
+            localStorage.setItem("token", res.data);
             return res.data;
         } else {
             return null;
@@ -41,7 +75,7 @@ async function login(email, password) {
 
 async function update(firstName, lastName) {
     try {
-        const res = await axios.put(`https://sprint-retrospective-api.herokuapp.com/users/update`, { firstName, lastName });
+        const res = await axios.put(`${API_URL}/users/update`, { firstName, lastName });
         if (res.status === 200) {
             return true;
         } else {
@@ -53,7 +87,5 @@ async function update(firstName, lastName) {
 }
 
 
-const funcs = { login, register, getUser, update };
-
-
+const funcs = { login, loginWithGoogle, loginWithFacebook, register, getUser, update };
 export default funcs;

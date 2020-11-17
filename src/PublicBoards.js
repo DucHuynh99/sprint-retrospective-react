@@ -1,20 +1,36 @@
-import React from 'react';
-import { Grid } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { Grid, Typography } from '@material-ui/core';
 
 import BoardCard from './BoardCard';
 
 import BoardService from './services/BoardService';
 
 
-const PublicBoards = ({ boardList, refreshBoards }) => {
-    const boards = Array.from(boardList);
+const PublicBoards = ({ userID, refreshBoards }) => {
+
+    const [boards, setBoards] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const FetchData = async (userID) => {
+            console.log(userID);
+            if (userID) {
+                const boardList = await BoardService.getBoards(userID);
+                if (boardList) {
+                    setBoards(boardList);
+                    setIsLoading(false);
+                }
+            }
+        };
+        FetchData(userID);
+        console.log('Call effect');
+    }, []);
+
     const listView = [];
-    if (boards.length !== 0) {
+    if (boards && boards.length !== 0) {
         for (let i = 0; i < boards.length; i++) {
             listView.push(
-                <Grid item
-                    key={i}
-                    sx={4}>
+                <Grid item key={i} sx={4}>
                     <BoardCard
                         name={boards[i].name}
                         modifiedDate={boards[i].modifiedDate}
@@ -28,8 +44,11 @@ const PublicBoards = ({ boardList, refreshBoards }) => {
             );
         }
     }
-    return (<Grid container spacing={3} >{listView}</Grid>);
-};
 
+    return (isLoading ?
+        <Typography>Loading...</Typography> :
+        <Grid container spacing={3} >{listView}</Grid>
+    );
+};
 
 export default PublicBoards;
