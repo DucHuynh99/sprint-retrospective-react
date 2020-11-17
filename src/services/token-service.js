@@ -10,7 +10,6 @@ const getUserID = () => {
     if (!token)
         return null;
     const payload = JWT.verify(token, "1712354");
-    console.log(payload);
     return payload.sub;
 };
 

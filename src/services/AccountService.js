@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const API_URL = "https://sprint-retrospective-api.herokuapp.com";
-const API_URL = "http://localhost:5000";
+const API_URL = "https://sprint-retrospective-api.herokuapp.com";
+// const API_URL = "http://localhost:5000";
 
 async function getUser(userID) {
     try {
@@ -46,7 +46,6 @@ async function login(email, password) {
 async function loginWithGoogle(tokenId) {
     try {
         const res = await axios.post(`${API_URL}/users/login-with-google`, { tokenId });
-        console.log(res);
         if (res.status === 200) {
             localStorage.setItem("token", res.data);
             return res.data;
@@ -61,7 +60,6 @@ async function loginWithGoogle(tokenId) {
 async function loginWithFacebook(id, accessToken) {
     try {
         const res = await axios.post(`${API_URL}/users/login-with-facebook`, { id, accessToken });
-        console.log(res);
         if (res.status === 200) {
             localStorage.setItem("token", res.data);
             return res.data;

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core';
 import { Grid, Typography, FormControl, InputLabel, Input, Box, Button } from '@material-ui/core';
 
@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Register({ onSuccess }) {
     const classes = useStyles();
-    const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');

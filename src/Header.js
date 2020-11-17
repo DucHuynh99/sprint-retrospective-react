@@ -24,7 +24,6 @@ export default function Header({ userID, onAvatarClick }) {
             }
         };
         FetchData(userID);
-        console.log("Call use effect");
     }, []);
 
     return (

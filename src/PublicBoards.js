@@ -6,24 +6,23 @@ import BoardCard from './BoardCard';
 import BoardService from './services/BoardService';
 
 
-const PublicBoards = ({ userID, refreshBoards }) => {
+const PublicBoards = ({ userID }) => {
 
     const [boards, setBoards] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        const FetchData = async (userID) => {
-            console.log(userID);
-            if (userID) {
-                const boardList = await BoardService.getBoards(userID);
-                if (boardList) {
-                    setBoards(boardList);
-                    setIsLoading(false);
-                }
+    const FetchBoard = async (userID) => {
+        if (userID) {
+            const boardList = await BoardService.getBoards(userID);
+            if (boardList) {
+                setBoards(boardList);
+                setIsLoading(false);
             }
-        };
-        FetchData(userID);
-        console.log('Call effect');
+        }
+    };
+
+    useEffect(() => {
+        FetchBoard(userID);
     }, []);
 
     const listView = [];
@@ -37,7 +36,7 @@ const PublicBoards = ({ userID, refreshBoards }) => {
                         cardCount={boards[i].cardCount}
                         deleteAction={async () => {
                             await BoardService.deleteBoard(boards[i]._id);
-                            await refreshBoards();
+                            await FetchBoard(userID);
                         }}
                     />
                 </Grid>

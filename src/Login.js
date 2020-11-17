@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core';
 import { Grid, Typography, FormControl, InputLabel, Input, Box, Button } from '@material-ui/core';
 import { GoogleLogin } from 'react-google-login';
@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login({ onSuccess }) {
     const classes = useStyles();
-    const history = useHistory();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -54,7 +53,6 @@ export default function Login({ onSuccess }) {
     }
 
     const onFacebookCallback = async (res) => {
-        console.log(res);
         const token = await AccountService.loginWithFacebook(res.id, res.accessToken);
         if (token) {
             console.log("[Login Facebook] Nhan duoc Token: ", token);
