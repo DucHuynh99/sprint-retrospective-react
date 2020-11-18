@@ -14,12 +14,12 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-export default function BoardDetailPage() {
+
+export default function BoardDetailPage({ userID }) {
     const { boardID } = useParams();
     const [board, setBoard] = useState(null);
     const [boardName, setBoardName] = useState("");
     const [dialogIsOpen, setDialogIsOpen] = useState(false);
-    const userID = "5f97c9e93f2cf8fef63f0777";
     const classes = useStyles();
 
     const FetchBoardInfo = async (boardID) => {

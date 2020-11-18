@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Typography, Box, Paper, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, makeStyles } from '@material-ui/core';
+import { Grid, Paper, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField } from '@material-ui/core';
 import BoardService from './services/BoardService';
 
 export default function BoardItem({ boardID, columnName, info, onActionSucess }) {

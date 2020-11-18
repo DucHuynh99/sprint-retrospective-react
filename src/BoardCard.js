@@ -1,5 +1,6 @@
 import React from 'react';
-import { makeStyles, Card, CardContent, Typography, IconButton } from '@material-ui/core';
+import { makeStyles, Card, CardContent, Typography, IconButton, Button } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import DeleteIcon from '@material-ui/icons/Delete';
 import moment from 'moment';
@@ -25,8 +26,9 @@ const useStyles = makeStyles({
 });
 
 
-const BoardCard = ({ name, cardCount, modifiedDate, deleteAction }) => {
+const BoardCard = ({ boardID, name, cardCount, modifiedDate, deleteAction }) => {
     const classes = useStyles();
+    const history = useHistory();
     return (
         <Card variant='outlined' className={classes.root}>
             <CardContent>
@@ -43,6 +45,7 @@ const BoardCard = ({ name, cardCount, modifiedDate, deleteAction }) => {
                 <IconButton align="right" aria-label="delete" onClick={() => deleteAction()}>
                     <DeleteIcon />
                 </IconButton>
+                <Button onClick={() => { history.push(`/board-detail/${boardID}`) }}>Details</Button>
             </CardContent>
         </Card>
     );

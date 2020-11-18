@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import BoardService from './services/BoardService';
-import { Grid, Typography, TextField, Button, makeStyles, Box, Paper } from '@material-ui/core';
+import { Grid, Typography, TextField, Button, makeStyles, Box } from '@material-ui/core';
 
 import BoardItem from './BoardItem';
 
@@ -87,15 +87,12 @@ export default function BoardDetail({ boardID }) {
         for (let i = 0; i < toImprove.length; i++) {
             toImproveListView.push(
                 <Grid item key={i}>
-                    <Paper elevation={3} >
-                        {toImprove[i]}
-                        <Button
-                            onClick={async () => {
-                                if (await BoardService.deleteBoardDetail(boardID, "ToImprove", toImprove[i])) {
-                                    FetchBoardDetail(boardID);
-                                }
-                            }}>Delete</Button>
-                    </Paper>
+                    <BoardItem
+                        boardID={boardID}
+                        columnName="ToImprove"
+                        info={toImprove[i]}
+                        onActionSucess={async () => { await FetchBoardDetail(boardID) }}
+                    />
                 </Grid>
             );
         }
@@ -105,15 +102,12 @@ export default function BoardDetail({ boardID }) {
         for (let i = 0; i < actionItems.length; i++) {
             actionItemsListView.push(
                 <Grid item key={i}>
-                    <Paper elevation={3} >
-                        {actionItems[i]}
-                        <Button
-                            onClick={async () => {
-                                if (await BoardService.deleteBoardDetail(boardID, "ActionItems", actionItems[i])) {
-                                    FetchBoardDetail(boardID);
-                                }
-                            }}>Delete</Button>
-                    </Paper>
+                    <BoardItem
+                        boardID={boardID}
+                        columnName="actionItems"
+                        info={actionItems[i]}
+                        onActionSucess={async () => { await FetchBoardDetail(boardID) }}
+                    />
                 </Grid>
             );
         }

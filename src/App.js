@@ -39,7 +39,7 @@ export default function App(props) {
             </Route>
 
             <Route path="/board-detail/:boardID">
-                <BoardDetailPage />
+                <BoardDetailPage userID={userID} />
             </Route>
 
             <Route path="/board-detail">

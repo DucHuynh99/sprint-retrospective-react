@@ -71,9 +71,9 @@ async function loginWithFacebook(id, accessToken) {
     }
 }
 
-async function update(firstName, lastName) {
+async function updateProfile(userID, firstName, lastName) {
     try {
-        const res = await axios.put(`${API_URL}/users/update`, { firstName, lastName });
+        const res = await axios.put(`${API_URL}/users/update`, { userID, firstName, lastName });
         if (res.status === 200) {
             return true;
         } else {
@@ -85,5 +85,5 @@ async function update(firstName, lastName) {
 }
 
 
-const funcs = { login, loginWithGoogle, loginWithFacebook, register, getUser, update };
+const funcs = { login, loginWithGoogle, loginWithFacebook, register, getUser, updateProfile };
 export default funcs;

@@ -60,6 +60,7 @@ const PublicBoards = ({ userID }) => {
             listView.push(
                 <Grid item key={i} sx={4}>
                     <BoardCard
+                        boardID={boards[i]._id}
                         name={boards[i].name}
                         modifiedDate={boards[i].modifiedDate}
                         cardCount={boards[i].cardCount}
