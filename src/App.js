@@ -4,6 +4,7 @@ import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 import HomePage from './HomePage';
+import BoardDetailPage from './BoardDetailPage';
 
 import tokenService from './services/token-service';
 
@@ -35,6 +36,14 @@ export default function App(props) {
                             }}
                         />
                 }
+            </Route>
+
+            <Route path="/board-detail/:boardID">
+                <BoardDetailPage />
+            </Route>
+
+            <Route path="/board-detail">
+                <Redirect to="/login" />
             </Route>
 
             <Route exact path="/">
