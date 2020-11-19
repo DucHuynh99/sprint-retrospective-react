@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const API_URL = "https://sprint-retrospective-api.herokuapp.com";
-const API_URL = "http://localhost:5000";
+const API_URL = "https://sprint-retrospective-api.herokuapp.com";
+// const API_URL = "http://localhost:5000";
 
 async function getBoards(userID) {
     try {
